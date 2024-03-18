@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Seriale</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        #adauga-recenzie-form {
+            margin-top: 20px;
+        }
+
+        #adauga-recenzie-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista Seriale</h1>
+    <ul id="lista-seriale">
+        <!-- Serialele vor fi adăugate dinamic aici -->
+    </ul>
+
+    <div id="adauga-recenzie-form">
+        <h2>Adaugă Recenzie</h2>
+        <form id="recenzie-form">
+            <label for="nume-serie">Nume serie:</label>
+            <input type="text" id="nume-serie" name="nume-serie" required>
+            <label for="descriere-recenzie">Recenzie:</label>
+            <textarea id="descriere-recenzie" name="descriere-recenzie" rows="4" required></textarea>
+            <button type="button" onclick="adaugaRecenzie()">Adaugă Recenzie</button>
+        </form>
+    </div>
+
+    <script>
+        // Exemplu de seriale (de obicei, acestea ar proveni de la server)
+        const seriale = [
+            { nume: 'Stranger Things', descriere: 'O serie de groază și mister.' },
+            { nume: 'Breaking Bad', descriere: 'O serie despre un profesor de chimie care devine traficant de droguri.' },
+            // Adaugă mai multe seriale
+        ];
+
+        // Afișează serialele în listă
+        const listaSerialeElement = document.getElementById('lista-seriale');
+        seriale.forEach(serial => {
+            const li = document.createElement('li');
+            li.textContent = `${serial.nume}: ${serial.descriere}`;
+            listaSerialeElement.appendChild(li);
+        });
+
+        // Funcție pentru adăugarea recenziei
+        function adaugaRecenzie() {
+            const numeSerie = document.getElementById('nume-serie').value;
+            const descriereRecenzie = document.getElementById('descriere-recenzie').value;
+
+            if (numeSerie && descriereRecenzie) {
+                // Simulează adăugarea recenziei într-un array (într-o aplicație reală, ar trebui să fie trimisă către server sau salvată într-o bază de date)
+                const recenzie = { nume: numeSerie, descriere: descriereRecenzie };
+                seriale.push(recenzie);
+
+                // Afișează recenzia adăugată în lista de seriale
+                const li = document.createElement('li');
+                li.textContent = `${recenzie.nume}: ${recenzie.descriere}`;
+                listaSerialeElement.appendChild(li);
+
+                // Resetează formularul
+                document.getElementById('recenzie-form').reset();
+            } else {
+                alert('Te rog să completezi toate câmpurile.');
+            }
+        }
+    </script>
+</body>
+</html>

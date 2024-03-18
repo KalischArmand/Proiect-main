@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recenzii Seriale</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Recenzii Seriale</h1>
+        <nav>
+            <ul>
+                <section id="recenzii">
+                    <!-- Aici vor fi afișate recenziile -->
+                    <button id="recenzii-btn">Recenzii</button>
+                </section>
+                
+                <section id="comentarii">
+                    <!-- Aici vor fi afișate comentariile -->
+                    <button id="comentarii-btn">Comentarii</button>
+                </section>
+                
+                <section id="lista-seriale">
+                    <!-- Aici vor fi afișate serialele -->
+                    <button id="lista-seriale-btn">Lista Seriale</button>
+                </section>
+                <section id="Logare>
+                    <button id="logare-btn">Logare</button>
+                </section>
+                
+            </ul>
+        </nav>
+    </header>
+
+    <section id="login-section" style="display: none;">
+    <h2>Logare</h2>
+    <form id="login-form">
+        <label for="username">Utilizator:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Parolă:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Logare</button>
+    </form>
+</section>
+
+<section id="profil-section" style="display: none;">
+    <h2>Profil Utilizator</h2>
+    <form id="profil-form">
+        <label for="nume">Nume:</label>
+        <input type="text" id="nume" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <label for="parola">Parolă:</label>
+        <input type="password" id="parola" required>
+        <button type="submit">Actualizează Profil</button>
+    </form>
+</section>
+
+
+
+    <footer>
+        <p>&copy; 2024 Recenzii Seriale</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

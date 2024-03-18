@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Seriale</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        #adauga-serial-form {
+            margin-top: 20px;
+        }
+
+        #adauga-serial-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .ingrosat {
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: underline;
+            color: #00f;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista Seriale</h1>
+    <ul id="lista-seriale">
+        <!-- Serialele vor fi adăugate dinamic aici -->
+    </ul>
+
+    <div id="adauga-serial-form">
+        <h2>Adaugă Serial</h2>
+        <form id="serial-form">
+            <label for="nume-serial">Nume serial:</label>
+            <input type="text" id="nume-serial" name="nume-serial" required>
+            <label for="descriere-serial">Descriere:</label>
+            <textarea id="descriere-serial" name="descriere-serial" rows="4" required></textarea>
+            <button type="button" onclick="adaugaSerial()">Adaugă Serial</button>
+        </form>
+    </div>
+
+    <script>
+        // Exemplu de seriale (de obicei, acestea ar proveni de la server)
+        const seriale = [
+            { nume: 'Stranger Things', descriere: 'O serie de groază și mister.' },
+            { nume: 'Breaking Bad', descriere: 'O serie despre un profesor de chimie care devine traficant de droguri.' },
+            // Adaugă mai multe seriale
+        ];
+
+        // Afișează serialele în listă
+        const listaSerialeElement = document.getElementById('lista-seriale');
+        afiseazaSeriale();
+
+        // Funcție pentru afișarea serialelor în listă
+        function afiseazaSeriale() {
+            listaSerialeElement.innerHTML = ''; // Curățăm lista
+
+            seriale.forEach(serial => {
+                const li = document.createElement('li');
+                const numeSerialElement = document.createElement('span');
+                numeSerialElement.innerHTML = `<a href="https://www.google.com/search?q=${encodeURIComponent(serial.nume)}" target="_blank" class="ingrosat">${serial.nume}</a>`;
+                li.appendChild(numeSerialElement);
+                li.innerHTML += `: ${serial.descriere}`;
+                listaSerialeElement.appendChild(li);
+
+                // Adaugă clasa "ingrosat" pentru a evidenția noul serial
+                if (serial.adaugatRecent) {
+                    numeSerialElement.classList.add('ingrosat');
+                    // Resetăm marcajul pentru următorul serial
+                    delete serial.adaugatRecent;
+                }
+            });
+        }
+
+        // Funcție pentru adăugarea serialului
+        function adaugaSerial() {
+            const numeSerial = document.getElementById('nume-serial').value;
+            const descriereSerial = document.getElementById('descriere-serial').value;
+
+            if (numeSerial && descriereSerial) {
+                // Simulează adăugarea serialului într-un array (într-o aplicație reală, ar trebui să fie trimis către server sau salvat într-o bază de date)
+                const serial = { nume: numeSerial, descriere: descriereSerial, adaugatRecent: true };
+                seriale.push(serial);
+
+                // Afișează serialul adăugat în lista de seriale
+                afiseazaSeriale();
+
+                // Resetează formularul
+                document.getElementById('serial-form').reset();
+            } else {
+                alert('Te rog să completezi toate câmpurile.');
+            }
+        }
+    </script>
+</body>
+</html>

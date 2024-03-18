@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comentarii</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #comentarii-lista {
+            list-style: none;
+            padding: 0;
+        }
+
+        #comentarii-lista li {
+            margin-bottom: 20px;
+        }
+
+        .comentariu {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .numar-ordine {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .stele {
+            font-size: 1.2em;
+            color: gold;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Comentarii</h1>
+    
+    <ul id="comentarii-lista">
+        <!-- Comentariile vor fi adăugate dinamic aici -->
+    </ul>
+
+    <form id="comentarii-form">
+        <label for="nume">Nume:</label>
+        <input type="text" id="nume" required>
+        <label for="serial">Serial:</label>
+        <select id="serial" required>
+            <!-- Opțiuni pentru serialele existente -->
+        </select>
+        <label for="comentariu">Comentariu:</label>
+        <textarea id="comentariu" required></textarea>
+        <label for="stele">Stele:</label>
+        <select id="stele">
+            <option value="1">1 stea</option>
+            <option value="2">2 stele</option>
+            <option value="3">3 stele</option>
+            <option value="4">4 stele</option>
+            <option value="5">5 stele</option>
+        </select>
+        <button type="submit">Adaugă Comentariu</button>
+    </form>
+
+    <script>
+        // Obține comentariile din memoria locală sau folosește un array gol
+        const comentarii = JSON.parse(localStorage.getItem('comentarii')) || [];
+
+        // Afișează comentariile în listă
+        const listaComentariiElement = document.getElementById('comentarii-lista');
+        afiseazaComentarii();
+
+        // Adaugă opțiunile pentru serialele existente în meniul drop-down
+        const serialSelect = document.getElementById('serial');
+        seriale.forEach(serial => {
+            const option = document.createElement('option');
+            option.value = serial.nume;
+            option.textContent = serial.nume;
+            serialSelect.appendChild(option);
+        });
+
+        // Adaugă eveniment pentru formularul de comentarii
+        const comentariiForm = document.getElementById('comentarii-form');
+        comentariiForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const numeInput = document.getElementById('nume');
+            const serialInput = document.getElementById('serial');
+            const comentariuInput = document.getElementById('comentariu');
+            const steleSelect = document.getElementById('stele');
+
+            const newComentariu = {
+                nume: numeInput.value,
+                serial: serialInput.value,
+                text: comentariuInput.value,
+                stele: steleSelect.value
+            };
+
+            // Adaugă noul comentariu în lista și reafișează
+            comentarii.push(newComentariu);
+            afiseazaComentarii();
+
+            // Salvează comentariile în memoria locală
+            localStorage.setItem('comentarii', JSON.stringify(comentarii));
+
+            // Resetează valorile din formular
+            numeInput.value = '';
+            serialInput.value = ''; // Resetează valoarea serialului
+            comentariuInput.value = '';
+            steleSelect.value = '1';
+        });
+
+        // Funcție pentru afișarea comentariilor
+        function afiseazaComentarii() {
+            listaComentariiElement.innerHTML = ''; // Curăță lista
+
+            // Afișează comentariile în lista
+            comentarii.forEach((comentariu, index) => {
+                const li = document.createElement('li');
+                li.classList.add('comentariu');
+                li.innerHTML = `
+                    <span class="numar-ordine">${index + 1}.</span>
+                    <span>${comentariu.nume}:</span>
+                    <span>${comentariu.serial} - ${comentariu.text}</span>
+                    <span class="stele">${"★".repeat(Number(comentariu.stele))}</span>
+                `;
+                listaComentariiElement.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
